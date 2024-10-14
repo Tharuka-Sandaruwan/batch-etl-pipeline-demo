@@ -3,13 +3,15 @@ name: Ballerina Daily Run
 on:
   schedule:
     - cron: '30 19 * * *'  # This corresponds to 1 AM in GMT+5:30 timezone
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  workflow_dispatch:
+    branches:
+      - main  # manual triggering
 
 jobs:
   run_ballerina:
     name: Run Ballerina main.bal and Tests
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # Ensure this job runs only on the main branch
+    if: github.ref == 'refs/heads/main'  #  only on the main branch
     steps:
       - name: Set up Ballerina
         run: |-
