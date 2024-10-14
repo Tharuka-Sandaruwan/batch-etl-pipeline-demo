@@ -3,6 +3,8 @@ import ballerina/sql;
 import ballerina/time;
 import ballerinax/h2.driver as _;
 import ballerinax/java.jdbc;
+import ballerina/io;
+
 
 final jdbc:Client dbClient = check new (url = "jdbc:h2:file:./database/loandatabase", user = "test", password = "test");
 
@@ -18,10 +20,10 @@ function extract() returns [LoanRequest[], LoanApproval[]]|error {
     // Hint: Use io ballerina library and read the csv files
 
     string loanRequestFile = "loan_request_2024_03_22.csv";
-    LoanRequest[] loanRequests;
-
+    LoanRequest[] loanRequests = check check io:fileReadCsv(loanRequestFile);
+    // io:println(loanRequests);
     string loanApprovalsFile = "approved_loans_2024_03_22.csv";    
-    LoanApproval[] loanApprovals;
+    LoanApproval[] loanApprovals = check check io:fileReadCsv(loanApprovalsFile);
 
     log:printInfo("END: extract data from the sftp server");
     return [loanRequests, loanApprovals];
