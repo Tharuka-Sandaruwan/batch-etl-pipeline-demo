@@ -3,6 +3,7 @@ name: Ballerina Daily Run
 on:
   schedule:
     - cron: '30 19 * * *'  # This corresponds to 1 AM in GMT+5:30 timezone
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   run_ballerina:
